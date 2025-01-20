@@ -36,7 +36,7 @@ def ctrpf_version_to_loader_version(major:int, minor:int, revision:int) -> tuple
     
 def search_firm_and_version(version: tuple) -> tuple:
     try:
-        auther_repo_name = [
+        auther_repo_name: dict = [
             ("PabloMK7", ["Luma3DS_3GX"]),
             ("lumaTeam", ["Luma3DS"])
         ]
@@ -67,7 +67,7 @@ def search_firm_and_version(version: tuple) -> tuple:
         for d in version_list[a][b][c]:
             auther, repo, vers = d
             auther_name, repository_names = auther_repo_name[auther]
-            repository_name = repository_names[repo]
+            repository_name:int = repository_names[repo]
             r.append((auther_name, repository_name, vers))
         return r
     except Exception as e:
@@ -75,36 +75,26 @@ def search_firm_and_version(version: tuple) -> tuple:
     
 if __name__ == "__main__":
 
-    ctrpf_file_name: str = input(" - ファイル名.3gx -\n")
+    ctrpf_file_name: str = input(" - ファイル名.3gx -\n");print("-"*32)
     
-    print("-"*32)
-    
-    print("ファイル名 || ディレクトリ名:", ctrpf_file_name)
-
-    print("-"*32)
+    print("ファイル名 || ディレクトリ名:", ctrpf_file_name);print("-"*32)
 
     ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version = get_version(ctrpf_file_name)
-    print(f"ctrpf バージョン:{ctrpf_major_version}.{ctrpf_minor_version}.{ctrpf_revision_version}")
-    
-    print("-"*32)
+    print(f"ctrpf バージョン:{ctrpf_major_version}.{ctrpf_minor_version}.{ctrpf_revision_version}");print("-"*32)
     
     loader_version: tuple = ctrpf_version_to_loader_version(ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version)
-    a,b,c=loader_version;print("loader バージョン", f"{a}.{b}.{c}");del a,b,c
+    a,b,c=loader_version;print("loader バージョン", f"{a}.{b}.{c}");del a,b,c;print("-"*32)
     
-    print("-"*32)
-
-    for auther_name, repository_name, versions in search_firm_and_version(loader_version):
-        
-        print("名前:", auther_name)
-        
-        print("-"*32)
+    print("\n");print("-"*32)
     
-        print("リポジトリ名:", repository_name)
-        
-        print("-"*32)
+    info: tuple = search_firm_and_version(loader_version)
+    for auther_name, repository_name, versions in info:
+    
+        print("名前:", auther_name);print("-"*32)
+    
+        print("リポジトリ名:", repository_name);print("-"*32)
 
         print(" - バージョン -")
-
         for version in versions:
             vs:list = []
             for v in version:
