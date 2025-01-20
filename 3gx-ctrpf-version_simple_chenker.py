@@ -79,20 +79,22 @@ if __name__ == "__main__":
     
     print("ファイル名 || ディレクトリ名:", ctrpf_file_name);print("-"*32)
 
+    print("\n");print("-"*32)
+
     ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version = get_version(ctrpf_file_name)
-    print(f"ctrpf バージョン:{ctrpf_major_version}.{ctrpf_minor_version}.{ctrpf_revision_version}");print("-"*32)
+    print(f"ctrpf バージョン:\t{ctrpf_major_version}.{ctrpf_minor_version}.{ctrpf_revision_version}");print("-"*32)
     
     loader_version: tuple = ctrpf_version_to_loader_version(ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version)
-    a,b,c=loader_version;print("loader バージョン", f"{a}.{b}.{c}");del a,b,c;print("-"*32)
+    a,b,c=loader_version;print(f"loader バージョン\t{a}.{b}.{c}");del a,b,c;print("-"*32)
     
     print("\n");print("-"*32)
     
     info: tuple = search_firm_and_version(loader_version)
     for auther_name, repository_name, versions in info:
     
-        print("名前:", auther_name);print("-"*32)
+        print("名前:\t\t", auther_name);print("-"*32)
     
-        print("リポジトリ名:", repository_name);print("-"*32)
+        print("リポジトリ名:\t", repository_name);print("-"*32)
 
         print(" - バージョン -")
         for version in versions:
@@ -100,6 +102,6 @@ if __name__ == "__main__":
             for v in version:
                 vs.append(str(v))
             v: str= ".".join(vs)
-            print(f" *",v)
+            print(" *",v)
                     
         print("-"*32)
