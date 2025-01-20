@@ -38,7 +38,7 @@ def search_firm_and_version(version: tuple) -> tuple:
     try:
         auther_repo_name: dict = [
             ("PabloMK7", ["Luma3DS_3GX"]),
-            ("lumaTeam", ["Luma3DS"])
+            ("LumaTeam", ["Luma3DS"])
         ]
         version_list: list = [
             [
@@ -75,6 +75,14 @@ def search_firm_and_version(version: tuple) -> tuple:
     
 if __name__ == "__main__":
 
+    print("-"*32)
+
+    keys = ["はい", "は", "yes", "y", "ゆうま村長"]
+    if key:=input("githubリンクにしますか？\t"+("/".join(keys))+"\n") in keys:
+        githublink = True
+        
+    print("-"*32)
+
     ctrpf_file_name: str = input(" - ファイル名.3gx -\n");print("-"*32)
     
     print("ファイル名 || ディレクトリ名:", ctrpf_file_name);print("-"*32)
@@ -104,4 +112,11 @@ if __name__ == "__main__":
             v: str= ".".join(vs)
             print(" *",v)
                     
+            if githublink:
+                print(f"  - https://github.com/{auther_name}/{repository_name}/releases/tag/v{v}")
+
         print("-"*32)
+    
+    if key == keys[4]:
+        print("https://www.youtube.com/@yumasonchou")
+        
