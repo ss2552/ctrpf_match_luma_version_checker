@@ -78,9 +78,8 @@ if __name__ == "__main__":
     print("-"*32)
 
     keys = ["はい", "は", "yes", "y", "ゆうま村長"]
-    if key:=input("githubリンクにしますか？\t"+("/".join(keys))+"\n") in keys:
-        githublink = True
-        
+    key=input("githubリンクにしますか？\t"+("/".join(keys))+"\n")
+
     print("-"*32)
 
     ctrpf_file_name: str = input(" - ファイル名.3gx -\n");print("-"*32)
@@ -112,11 +111,11 @@ if __name__ == "__main__":
             v: str= ".".join(vs)
             print(" *",v)
                     
-            if githublink:
+            if key in keys:
                 print(f"  - https://github.com/{auther_name}/{repository_name}/releases/tag/v{v}")
 
         print("-"*32)
     
     if key == keys[4]:
-        print("https://www.youtube.com/@yumasonchou")
+        print("\n\t --- https://www.youtube.com/@yumasonchou ---\n")
         
