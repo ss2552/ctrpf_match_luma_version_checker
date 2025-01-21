@@ -44,7 +44,7 @@ def search_firm_and_version(version: tuple) -> tuple:
             [
                 [
                     [
-                        (0, 0, [9,1])
+                        (0, 0, [(9,1)])
                     ]
                 ]
             ],
