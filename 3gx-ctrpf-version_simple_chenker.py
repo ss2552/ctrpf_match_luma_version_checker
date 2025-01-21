@@ -26,14 +26,14 @@ def ctrpf_version_to_loader_version(major:int, minor:int, revision:int) -> tuple
                 )
             }
         ][major][minor]
-        
+
         if revision in ctrpf_revision:
             return loader_version
         else:
             raise Exception(revision)
     except Exception as e:
         raise Exception(e)
-    
+
 def search_firm_and_version(version: tuple) -> tuple:
     try:
         auther_repo_name: dict = [
@@ -72,10 +72,10 @@ def search_firm_and_version(version: tuple) -> tuple:
         return r
     except Exception as e:
         raise Exception(e)
-    
+
 if __name__ == "__main__":
     bar32 = "-"*32;bar64="-"*64;print(bar32)
-    
+
     keys = ["はい", "は", "yes", "y", "ゆうま村長"]
     key=input("githubリンクにしますか？\n\t（"+("/".join(keys))+"）\n");print(bar32)
 
@@ -83,18 +83,18 @@ if __name__ == "__main__":
 
     ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version = get_version(ctrpf_file_name)
     print(f"ctrpf バージョン:\t{ctrpf_major_version}.{ctrpf_minor_version}.{ctrpf_revision_version}"+"\n"+bar32)
-    
+
     loader_version: tuple = ctrpf_version_to_loader_version(ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version)
     a,b,c=loader_version;print(f"loader バージョン\t{a}.{b}.{c}\n"+bar32+("\n\n"));del a,b,c
-    
+
     github_link: bool = 1 if key in keys else 0
-    
+
     info: tuple = search_firm_and_version(loader_version)
     for auther_name, repository_name, versions in info:
         print("\n"+"~"*64)
 
         print("名前:\t\t"+auther_name+"\n"+bar64)
-    
+
         print("リポジトリ名:\t"+repository_name+"\n"+bar64)
 
         print(" - バージョン -")
@@ -104,12 +104,12 @@ if __name__ == "__main__":
                 vs.append(str(v))
             v: str= ".".join(vs)
             print(" *",v)
-                    
+
             if github_link:
                 print(f"  - https://github.com/{auther_name}/{repository_name}/releases/tag/v{v}")
 
         print(bar64)
-    
+
     if key == keys[4]:
         print("\n\n\n\t --- https://www.youtube.com/@yumasonchou ---\n\n")
     print("\n")
