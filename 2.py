@@ -87,7 +87,7 @@ if __name__ == "__main__":
     loader_version: tuple = ctrpf_version_to_loader_version(ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version)
     a,b,c=loader_version;print(f"loader バージョン\t{a}.{b}.{c}\n"+bar32+("\n\n"));del a,b,c
     
-    github_link = 1 if key in keys else 0
+    github_link: bool = 1 if key in keys else 0
     
     info: tuple = search_firm_and_version(loader_version)
     for auther_name, repository_name, versions in info:
