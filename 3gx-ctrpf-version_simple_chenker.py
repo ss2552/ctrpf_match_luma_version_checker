@@ -105,9 +105,7 @@ if __name__ == "__main__":
 
         print(" - バージョン -")
         for version in versions:
-            vs:list = []
-            for v in version:
-                vs.append(str(v))
+            vs:list = [str(v) for v in version]
             v: str = ".".join(vs)
             print(" *",v)
 
