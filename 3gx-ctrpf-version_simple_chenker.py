@@ -14,9 +14,9 @@ def get_version(fp: str) -> tuple:
     except Exception as e:
         err(e)
 
-def ctrpf_version_to_loader_version(major:int, minor:int, revision:int) -> tuple:
+def ctrpf_version_to_loader_version(major:int, minor:int) -> tuple:
     try:
-        loader_version, ctrpf_revision = [
+        return [
             {
                 8: (
                     (1,0,2), [0]
@@ -32,11 +32,6 @@ def ctrpf_version_to_loader_version(major:int, minor:int, revision:int) -> tuple
                 )
             }
         ][major][minor]
-
-        if revision in ctrpf_revision:
-            return loader_version
-        else:
-            err(revision)
     except Exception as e:
         err(e)
 
@@ -90,7 +85,7 @@ if __name__ == "__main__":
     ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version = get_version(ctrpf_file_name)
     print(f"ctrpf バージョン:\t{ctrpf_major_version}.{ctrpf_minor_version}.{ctrpf_revision_version}"+"\n"+bar32)
 
-    loader_version: tuple = ctrpf_version_to_loader_version(ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version)
+    loader_version, ctrpf_revision = ctrpf_version_to_loader_version(ctrpf_major_version, ctrpf_minor_version)
     a,b,c=loader_version;print(f"loader バージョン\t{a}.{b}.{c}\n"+bar32+("\n\n"));del a,b,c
 
     github_link: bool = 1 if key in keys else 0
@@ -114,6 +109,6 @@ if __name__ == "__main__":
 
         print(bar64)
 
-    if key == keys[4]:
-        print("\n\n\n\t --- https://www.youtube.com/@yumasonchou ---\n\n")
-    print("\n")
+    
+    if key == keys[4]:print("\n\n\n\t --- https://www.youtube.com/@yumasonchou ---\n\n")
+    print("\n" if ctrpf_revision_version in ctrpf_revision else f"\n* revision バージョンが不明でした\n* 動かない可能性があります\n")
