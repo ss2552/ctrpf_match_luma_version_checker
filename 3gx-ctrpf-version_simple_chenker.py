@@ -32,6 +32,10 @@ def ctrpf_version_to_loader_version(major:int, minor:int) -> tuple:
                 )
             }
         ][major][minor]
+    except IndexError:
+        err("major バージョンが不明です")
+    except KeyError:
+        err("minor バージョンが不明です")
     except Exception as e:
         err(e)
 
