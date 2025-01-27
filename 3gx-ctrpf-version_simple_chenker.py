@@ -12,7 +12,7 @@ def get_version(fp: str) -> tuple:
     except FileNotFoundError:
         err("ファイルが見つかりません")
     except Exception as e:
-        err(e)
+        raise Exception(e)
 
 def ctrpf_version_to_loader_version(major:int, minor:int) -> tuple:
     try:
@@ -37,32 +37,34 @@ def ctrpf_version_to_loader_version(major:int, minor:int) -> tuple:
     except KeyError:
         err("minor バージョンが不明です")
     except Exception as e:
-        err(e)
+        raise Exception(e)
 
 def search_firm_and_version(version: tuple) -> tuple:
     try:
         auther_repo_name: dict = [
             ("PabloMK7", ["Luma3DS_3GX"]),
-            ("LumaTeam", ["Luma3DS"])
+            ("LumaTeam", ["Luma3DS"]),
+            ("mind-overflow", ["Luma3DS-3GX"])
         ]
         version_list: list = [
             [
                 [
                     [
-                        (0, 0, [(9,1)])
+                        (0, 0, ["9.1"]),
+                        (2, 0, ["10.1.3-beta","10.1.3-beta2","10.2-beta3"])
                     ]
                 ]
             ],
             [
                 [
                     [
-                        (0, 0, [(10,2,1),(10,3),(11,0),(12,0)])
+                        (0, 0, ["10.2.1","10.3","11.0","12.0"])
                     ],
                     [
-                        (0, 0, [(13,0),(13,0,1),(13,0,2),(13,1)])
+                        (0, 0, ["13.0","13.0.1","13.0.2","13.1"])
                     ],
                     [
-                        (1, 0, [(13,1,1),(13,1,2),(13,2),(13,2,1),(13,3)])
+                        (1, 0, ["13.1.1","13.1.2","13.2","13.2.1","13.3"])
                     ]
                 ]
             ]
@@ -76,27 +78,27 @@ def search_firm_and_version(version: tuple) -> tuple:
             r.append((auther_name, repository_name, vers))
         return r
     except Exception as e:
-        err(e)
+        raise Exception(e)
 
 if __name__ == "__main__":
     bar32 = "-"*32;bar64="-"*64;print(bar32)
     
     keys = ["はい", "は", "yes", "y", "ゆうま村長"]
-    key=input("githubリンクにしますか？\n\t（"+("/".join(keys))+"）\n");print(bar32)
+    key=input("githubリンクにしますか？\n\t（"+("/".join(keys))+"/ 無）\n");print(bar32)
 
-    ctrpf_file_name: str = input(" - ファイル名.3gx -\n");print(bar32+"\n\n"+bar32)
+    ctrpf_file_name: str = input(" - ファイル名.3gx\n\t（3gxのplugin versionが変更されていた場合は使用出来ません。）-\n");print(bar32+"\n\n"+bar32)
 
     ctrpf_major_version, ctrpf_minor_version, ctrpf_revision_version = get_version(ctrpf_file_name)
     print(f"ctrpf バージョン:\t{ctrpf_major_version}.{ctrpf_minor_version}.{ctrpf_revision_version}"+"\n"+bar32)
 
     loader_version, ctrpf_revision = ctrpf_version_to_loader_version(ctrpf_major_version, ctrpf_minor_version)
-    a,b,c=loader_version;print(f"loader バージョン\t{a}.{b}.{c}\n"+bar32+("\n\n"));del a,b,c
+    a,b,c=loader_version;print(f"loader バージョン:\t{a}.{b}.{c}\n"+bar32+("\n"));del a,b,c
 
     github_link: bool = 1 if key in keys else 0
 
     info: tuple = search_firm_and_version(loader_version)
     for auther_name, repository_name, versions in info:
-        print("\n"+"~"*64)
+        print("\n\n"+"~"*64)
 
         print("名前:\t\t"+auther_name+"\n"+bar64)
 
@@ -104,12 +106,9 @@ if __name__ == "__main__":
 
         print(" - バージョン -")
         for version in versions:
-            vs:list = [str(v) for v in version]
-            v: str = ".".join(vs)
-            print(" *",v)
-
+            print(" *",version)
             if github_link:
-                print(f"  - https://github.com/{auther_name}/{repository_name}/releases/tag/v{v}")
+                print(f"  - https://github.com/{auther_name}/{repository_name}/releases/tag/v{version}")
 
         print(bar64)
 
